@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="https://unpkg.com/mvp.css@1/mvp.css" />
     <script src="https://unpkg.com/htmx.org@1"></script>
     <script src="https://unpkg.com/htmx.org@1/dist/ext/client-side-templates.js"></script>
+  </head>
+
+  <body>
     <script id="foo" type="application/xml">
       <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-        <xsl:template match="hourlylocationsforecast">
-          <xsl:for-each select="location">
+        <xsl:template match="HourlyLocationsForecast">
+          <xsl:for-each select="Location">
             <aside>
               <h3>
-                <xsl:value-of select="locationmetadata/locationname" />
+                <xsl:value-of select="LocationMetaData/LocationName" />
               </h3>
               <table>
                 <tr>
@@ -21,16 +24,16 @@
                   <th>temp</th>
                   <th>humidity</th>
                 </tr>
-                <xsl:for-each select="locationdata/forecast">
+                <xsl:for-each select="LocationData/Forecast">
                   <tr>
                     <td>
-                      <xsl:value-of select="substring(forecasttime, 11)" />
+                      <xsl:value-of select="substring(ForecastTime, 11)" />
                     </td>
                     <td>
-                      <xsl:value-of select="temperature" /> °C
+                      <xsl:value-of select="Temperature" /> °C
                     </td>
                     <td>
-                      <xsl:value-of select="relativehumidity" />%
+                      <xsl:value-of select="RelativeHumidity" />%
                     </td>
                   </tr>
                 </xsl:for-each>
@@ -40,9 +43,6 @@
         </xsl:template>
       </xsl:stylesheet>
     </script>
-  </head>
-
-  <body>
     <section
       hx-trigger="load"
       hx-get="https://proxy.cors.sh/https://ims.gov.il/sites/default/files/ims_data/xml_files/IMS_001.xml"
