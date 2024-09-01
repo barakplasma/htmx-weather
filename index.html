@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
+  <meta name="htmx-config" content='{"selfRequestsOnly":false}'> 
   <title>Weather with htmx</title>
   <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.15/mvp.css" />
   <script src="https://unpkg.com/htmx.org@2.0"></script>
@@ -44,7 +45,7 @@
         </xsl:template>
       </xsl:stylesheet>
     </script>
-  <section hx-ext="client-side-templates" hx-trigger="load" selfRequestOnly="false"
+  <section hx-ext="client-side-templates" hx-trigger="load"
     hx-get="https://proxy.cors.sh/https://ims.gov.il/sites/default/files/ims_data/xml_files/IMS_001.xml"
     hx-swap="innerHTML" xslt-template="foo">waiting for data
   </section>
