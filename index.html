@@ -1,54 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width">
-				<title>Weather with htmx</title>
-				<link rel="stylesheet" href="https://unpkg.com/mvp.css@1.15.0/mvp.css">
-					<script src="https://unpkg.com/htmx.org@1"></script>
-					<script src="https://unpkg.com/htmx.org@1/dist/ext/client-side-templates.js"></script>
-				</head>
-				<body>
-                  <section hx-trigger="load" hx-get="https://proxy.cors.sh/https://ims.gov.il/sites/default/files/ims_data/xml_files/IMS_001.xml" 
-             hx-swap="innerHTML" 
-             hx-target="#content" 
-                           xslt-template="foo" ></section>
-						<section id="content">Waiting for data...</section>
-						<script id="foo" type="application/xml">
-							<xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:template match="HourlyLocationsForecast">
-		<xsl:for-each select="Location">
-			<aside>
-				<h3>
-					<xsl:value-of select="LocationMetaData/LocationName" />
-				</h3>
-				<table>
-					<tr>
-						<th>time</th>
-						<th>temp</th>
-						<th>humidity</th>
-					</tr>
-					<xsl:for-each select="LocationData/Forecast">
-						<tr>
-							<td>
-								<xsl:value-of select="substring(ForecastTime, 11)" />
-							</td>
-							<td>
-								<xsl:value-of select="Temperature" /> °C
-																
-							</td>
-							<td>
-								<xsl:value-of select="RelativeHumidity" />%
-																
-							</td>
-						</tr>
-					</xsl:for-each>
-				</table>
-			</aside>
-		</xsl:for-each>
-	</xsl:template>
-</xsl:stylesheet>
-								</script>
-						</body>
-					</html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Weather with htmx</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1/mvp.css" />
+    <script src="https://unpkg.com/htmx.org@1"></script>
+    <script src="https://unpkg.com/htmx.org@1/dist/ext/client-side-templates.js"></script>
+  </head>
+
+  <body>
+    <section
+      hx-trigger="load"
+      hx-get="https://proxy.cors.sh/https://ims.gov.il/sites/default/files/ims_data/xml_files/IMS_001.xml"
+      hx-swap="innerHTML"
+      hx-target="#content"
+      xslt-template="foo"
+    ></section>
+    <section id="content">Waiting for data...</section>
+    <script id="foo" type="application/xml" src="stylesheet.xml">
+  </body>
+</html>
