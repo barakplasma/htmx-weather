@@ -44,7 +44,7 @@
         </xsl:template>
       </xsl:stylesheet>
     </script>
-  <section hx-ext="client-side-templates" hx-trigger="load"
+  <section hx-ext="client-side-templates" hx-trigger="load" selfRequestOnly="false"
     hx-get="https://proxy.cors.sh/https://ims.gov.il/sites/default/files/ims_data/xml_files/IMS_001.xml"
     hx-swap="innerHTML" xslt-template="foo">waiting for data
   </section>
