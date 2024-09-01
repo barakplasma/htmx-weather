@@ -7,7 +7,39 @@
     <link rel="stylesheet" href="https://unpkg.com/mvp.css@1/mvp.css" />
     <script src="https://unpkg.com/htmx.org@1"></script>
     <script src="https://unpkg.com/htmx.org@1/dist/ext/client-side-templates.js"></script>
-    <script src="./stylesheet.xml" id="foo" type="application/xml"></script>
+    <script id="foo" type="application/xml">
+      <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:template match="HourlyLocationsForecast">
+          <xsl:for-each select="Location">
+            <aside>
+              <h3>
+                <xsl:value-of select="LocationMetaData/LocationName" />
+              </h3>
+              <table>
+                <tr>
+                  <th>time</th>
+                  <th>temp</th>
+                  <th>humidity</th>
+                </tr>
+                <xsl:for-each select="LocationData/Forecast">
+                  <tr>
+                    <td>
+                      <xsl:value-of select="substring(ForecastTime, 11)" />
+                    </td>
+                    <td>
+                      <xsl:value-of select="Temperature" /> °C
+                    </td>
+                    <td>
+                      <xsl:value-of select="RelativeHumidity" />%
+                    </td>
+                  </tr>
+                </xsl:for-each>
+              </table>
+            </aside>
+          </xsl:for-each>
+        </xsl:template>
+      </xsl:stylesheet>;
+    </script>
   </head>
 
   <body>
