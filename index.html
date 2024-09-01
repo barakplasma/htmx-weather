@@ -5,9 +5,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <title>Weather with htmx</title>
-  <link rel="stylesheet" href="https://unpkg.com/mvp.css/mvp.css" />
-  <script src="https://unpkg.com/htmx.org"></script>
-  <script src="https://unpkg.com/htmx.org/dist/ext/client-side-templates.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.15/mvp.css" />
+  <script src="https://unpkg.com/htmx.org@2.0"></script>
+  <script src="https://unpkg.com/htmx.org@2.0/dist/ext/client-side-templates.js"></script>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
                 <xsl:for-each select="LocationData/Forecast">
                   <tr>
                     <td>
-                      <xsl:value-of select="substring(ForecastTime, 11)" />
+                      <xsl:value-of select="substring(ForecastTime, 9)" />
                     </td>
                     <td>
                       <xsl:value-of select="Temperature" /> °C
