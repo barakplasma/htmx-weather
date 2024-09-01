@@ -9,11 +9,11 @@
     <script src="https://unpkg.com/htmx.org@1/dist/ext/client-side-templates.js"></script>
     <script id="foo" type="application/xml">
       <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-        <xsl:template match="HourlyLocationsForecast">
-          <xsl:for-each select="Location">
+        <xsl:template match="hourlylocationsforecast">
+          <xsl:for-each select="location">
             <aside>
               <h3>
-                <xsl:value-of select="LocationMetaData/LocationName" />
+                <xsl:value-of select="locationmetadata/locationname" />
               </h3>
               <table>
                 <tr>
@@ -21,16 +21,16 @@
                   <th>temp</th>
                   <th>humidity</th>
                 </tr>
-                <xsl:for-each select="LocationData/Forecast">
+                <xsl:for-each select="locationdata/forecast">
                   <tr>
                     <td>
-                      <xsl:value-of select="substring(ForecastTime, 11)" />
+                      <xsl:value-of select="substring(forecasttime, 11)" />
                     </td>
                     <td>
-                      <xsl:value-of select="Temperature" /> °C
+                      <xsl:value-of select="temperature" /> °C
                     </td>
                     <td>
-                      <xsl:value-of select="RelativeHumidity" />%
+                      <xsl:value-of select="relativehumidity" />%
                     </td>
                   </tr>
                 </xsl:for-each>
@@ -38,7 +38,7 @@
             </aside>
           </xsl:for-each>
         </xsl:template>
-      </xsl:stylesheet>;
+      </xsl:stylesheet>
     </script>
   </head>
 
