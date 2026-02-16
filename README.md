@@ -31,6 +31,10 @@ mustache-array.html   — Example: Mustache template with array iteration
 .github/workflows/    — GitHub Pages deployment workflow
 ```
 
+## Browser compatibility
+
+The app uses the browser's native `XSLTProcessor` API. For environments where `XSLTProcessor` is not available (e.g. some embedded webviews), a built-in polyfill automatically falls back to JavaScript-based XML parsing that produces the same output.
+
 ## Running locally
 
 Open `index.html` in a browser. No server or build tools required.

@@ -7,6 +7,56 @@
   <meta name="htmx-config" content='{"selfRequestsOnly":false}'> 
   <title>Weather with htmx</title>
   <link rel="stylesheet" href="https://unpkg.com/mvp.css@1" />
+  <script>
+    // XSLTProcessor polyfill for environments where it's not available.
+    // Replicates the IMS forecast XML-to-HTML transform from the XSLT below.
+    if (typeof XSLTProcessor === 'undefined') {
+      window.XSLTProcessor = class {
+        importStylesheet() {}
+        transformToFragment(xmlDoc, ownerDoc) {
+          var fragment = ownerDoc.createDocumentFragment();
+          var locations = xmlDoc.getElementsByTagName('Location');
+          for (var i = 0; i < locations.length; i++) {
+            var loc = locations[i];
+            var name = loc.getElementsByTagName('LocationName')[0];
+            var aside = ownerDoc.createElement('aside');
+            var h3 = ownerDoc.createElement('h3');
+            h3.textContent = name ? name.textContent : '';
+            aside.appendChild(h3);
+            var table = ownerDoc.createElement('table');
+            var headerRow = ownerDoc.createElement('tr');
+            ['time', 'temp', 'humidity'].forEach(function(t) {
+              var th = ownerDoc.createElement('th');
+              th.textContent = t;
+              headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+            var forecasts = loc.getElementsByTagName('Forecast');
+            for (var j = 0; j < forecasts.length; j++) {
+              var fc = forecasts[j];
+              var tr = ownerDoc.createElement('tr');
+              var tdTime = ownerDoc.createElement('td');
+              var timeEl = fc.getElementsByTagName('ForecastTime')[0];
+              tdTime.textContent = timeEl ? timeEl.textContent.substring(8) : '';
+              tr.appendChild(tdTime);
+              var tdTemp = ownerDoc.createElement('td');
+              var tempEl = fc.getElementsByTagName('Temperature')[0];
+              tdTemp.textContent = (tempEl ? tempEl.textContent : '') + ' \u00B0C';
+              tr.appendChild(tdTemp);
+              var tdHum = ownerDoc.createElement('td');
+              var humEl = fc.getElementsByTagName('RelativeHumidity')[0];
+              tdHum.textContent = (humEl ? humEl.textContent : '') + '%';
+              tr.appendChild(tdHum);
+              table.appendChild(tr);
+            }
+            aside.appendChild(table);
+            fragment.appendChild(aside);
+          }
+          return fragment;
+        }
+      };
+    }
+  </script>
   <script src="https://unpkg.com/htmx.org@2"></script>
   <script src="https://unpkg.com/htmx-ext-client-side-templates@2"></script>
 </head>
